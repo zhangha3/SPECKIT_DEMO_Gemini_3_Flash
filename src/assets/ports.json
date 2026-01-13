@@ -68,5 +68,68 @@
     "name_en": "Antwerp",
     "country": "Belgium",
     "timezone": "Europe/Brussels"
+  },
+  {
+    "code": "CNNGB",
+    "name_cn": "宁波",
+    "name_en": "Ningbo",
+    "country": "China",
+    "timezone": "Asia/Shanghai"
+  },
+  {
+    "code": "CNNSA",
+    "name_cn": "南沙",
+    "name_en": "Nansha",
+    "country": "China",
+    "timezone": "Asia/Shanghai"
+  },
+  {
+    "code": "GBFXT",
+    "name_cn": "费利克斯托",
+    "name_en": "Felixstowe",
+    "country": "United Kingdom",
+    "timezone": "Europe/London"
+  },
+  {
+    "code": "AUMEL",
+    "name_cn": "墨尔本",
+    "name_en": "Melbourne",
+    "country": "Australia",
+    "timezone": "Australia/Melbourne"
+  },
+  {
+    "code": "INNSA",
+    "name_cn": "纳瓦舍瓦",
+    "name_en": "Nhava Sheva",
+    "country": "India",
+    "timezone": "Asia/Kolkata"
+  },
+  {
+    "code": "VNSGN",
+    "name_cn": "胡志明市",
+    "name_en": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  {
+    "code": "JPYOK",
+    "name_cn": "横滨",
+    "name_en": "Yokohama",
+    "country": "Japan",
+    "timezone": "Asia/Tokyo"
+  },
+  {
+    "code": "USOAK",
+    "name_cn": "奥克兰",
+    "name_en": "Oakland",
+    "country": "United States",
+    "timezone": "America/Los_Angeles"
+  },
+  {
+    "code": "FRLEH",
+    "name_cn": "勒阿弗尔",
+    "name_en": "Le Havre",
+    "country": "France",
+    "timezone": "Europe/Paris"
   }
 ]

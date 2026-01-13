@@ -1,75 +1,59 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto">
-      <header class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">全球航运港口查询</h1>
-        <p class="text-gray-600">查询全球范围内的 UN/LOCODE 港口信息</p>
-      </header>
-
-      <main>
-        <div v-if="loading" class="text-center py-12">
-          <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
-          <p class="mt-4 text-gray-600">正在加载港口数据...</p>
-        </div>
-
-        <div v-else-if="error" class="bg-red-50 border-l-4 border-red-400 p-4 mb-8">
+  <div class="min-h-screen bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
           <div class="flex">
-            <div class="flex-shrink-0">
-              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-              </svg>
+            <div class="flex-shrink-0 flex items-center">
+              <span class="text-xl font-bold text-blue-600">PortConnect</span>
             </div>
-            <div class="ml-3">
-              <p class="text-sm text-red-700">
-                {{ error }}
-              </p>
+            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+              <router-link 
+                to="/" 
+                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                :class="[route.path === '/' ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700']"
+              >
+                港口查询
+              </router-link>
+              <router-link 
+                to="/schedules" 
+                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                :class="[route.path === '/schedules' ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700']"
+              >
+                船期查询
+              </router-link>
             </div>
           </div>
         </div>
+      </div>
+    </nav>
 
-        <div v-else>
-          <SearchBar v-model="searchQuery" @search="currentPage = 1" />
-          
-          <div class="mt-8">
-            <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
-              查询结果
-              <span class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                {{ filteredPorts.length }}
-              </span>
-            </h2>
-            <PortList :ports="paginatedPorts" />
-            <Pagination 
-              v-if="filteredPorts.length > pageSize"
-              :totalItems="filteredPorts.length" 
-              :pageSize="pageSize" 
-              v-model:currentPage="currentPage" 
-            />
-          </div>
-        </div>
-      </main>
+    <!-- Main Content -->
+    <div class="py-10">
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { usePorts } from '@/composables/usePorts';
-import SearchBar from '@/components/SearchBar.vue';
-import PortList from '@/components/PortList.vue';
-import Pagination from '@/components/Pagination.vue';
+import { useRoute } from 'vue-router';
 
-const { 
-  loading, 
-  error, 
-  loadPorts, 
-  searchQuery, 
-  filteredPorts, 
-  paginatedPorts, 
-  currentPage, 
-  pageSize 
-} = usePorts();
-
-onMounted(() => {
-  loadPorts();
-});
+const route = useRoute();
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

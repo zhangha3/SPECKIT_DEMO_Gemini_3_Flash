@@ -90,4 +90,35 @@ describe('usePorts Data Loading', () => {
         expect(filteredPorts.value[0].code).toBe('CNSHA');
       });
   });
+
+  describe('searchPorts standalone method', () => {
+    const mockPorts = [
+      { code: 'CNSHA', name_cn: '上海', name_en: 'Shanghai', country: 'China', timezone: 'Asia/Shanghai' },
+      { code: 'SGSIN', name_cn: '新加坡', name_en: 'Singapore', country: 'Singapore', timezone: 'Asia/Singapore' },
+    ];
+
+    it('should return empty array for query length < 2', async () => {
+      (global.fetch as any).mockResolvedValue({
+        ok: true,
+        json: async () => mockPorts,
+      });
+      const { loadPorts, searchPorts } = usePorts();
+      await loadPorts();
+
+      expect(searchPorts('S')).toHaveLength(0);
+    });
+
+    it('should match multiple fields', async () => {
+      (global.fetch as any).mockResolvedValue({
+        ok: true,
+        json: async () => mockPorts,
+      });
+      const { loadPorts, searchPorts } = usePorts();
+      await loadPorts();
+
+      expect(searchPorts('sha')).toHaveLength(1);
+      expect(searchPorts('上海')).toHaveLength(1);
+      expect(searchPorts('CNS')).toHaveLength(1);
+    });
+  });
 });

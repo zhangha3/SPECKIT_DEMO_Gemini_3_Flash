@@ -8,9 +8,11 @@ export function usePorts() {
   const searchQuery = ref('');
 
   const loadPorts = async () => {
+    if (ports.value.length > 0) return; // Prevent double load
     loading.value = true;
     error.value = null;
     try {
+      // Use absolute path for reliability in different view contexts
       const response = await fetch('/src/assets/ports.json');
       if (!response.ok) {
         throw new Error('Load failed');
@@ -23,6 +25,20 @@ export function usePorts() {
     } finally {
       loading.value = false;
     }
+  };
+
+  /**
+   * Search ports by code, name_cn, or name_en
+   */
+  const searchPorts = (query: string): Port[] => {
+    const q = query.trim().toUpperCase();
+    if (!q || q.length < 2) return [];
+
+    return ports.value.filter(p => 
+      p.code.toUpperCase().includes(q) ||
+      p.name_cn.toUpperCase().includes(q) ||
+      p.name_en.toUpperCase().includes(q)
+    );
   };
 
   const filteredPorts = computed(() => {
@@ -61,6 +77,7 @@ export function usePorts() {
     paginatedPorts,
     currentPage,
     pageSize,
-    loadPorts
+    loadPorts,
+    searchPorts
   };
 }
