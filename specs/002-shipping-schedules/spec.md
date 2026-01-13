@@ -136,12 +136,11 @@
 - 数据为静态模拟数据，不涉及实时 API 对接。
 - 运输时长为固定天数，不考虑动态延误。
 - 搜索匹配为不区分大小写的子串匹配。
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
 ### Key Entities *(include if feature involves data)*
 
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
+<!-- - **[Entity 1]**: [What it represents, key attributes without implementation]
+- **[Entity 2]**: [What it represents, relationships to other entities] -->
 
 ## Success Criteria *(mandatory)*
 
