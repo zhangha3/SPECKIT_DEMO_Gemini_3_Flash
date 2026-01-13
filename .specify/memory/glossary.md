@@ -15,3 +15,7 @@
 | 模糊查询 | 指搜索关键词只需包含在目标文本中即可匹配 | |
 | IANA Timezone | 互联网号码指派局 (Internet Assigned Numbers Authority) 维护的时区数据库格式，如 'Asia/Shanghai' | |
 | 港口代码 | 即 UN/LOCODE | |
+| ETD | 预计发运时间 (Estimated Time of Departure) | 航运核心时间节点 |
+| 运输耗时 (Duration) | 船舶从起运港到目的港所需的平均天数 | |
+| 承运人 (Carrier) | 负责运输貨物的航运公司，如马士基(Maersk)、中远海运(COSCO) | |
+| 船名 (Vessel Name) | 具体执行航次的船舶名称 | |
