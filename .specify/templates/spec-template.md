@@ -1,5 +1,10 @@
 # Feature Specification: [FEATURE NAME]
 
+**Constitution Reminder**:
+- 优先使用**中文**编写所有文档。
+- 所有的图表必须使用 **Mermaid** 语法。
+- 新出现的术语请及时更新至 `.specify/memory/glossary.md`。
+
 **Feature Branch**: `[###-feature-name]`  
 **Created**: [DATE]  
 **Status**: Draft  

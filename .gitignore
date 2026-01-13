@@ -1,0 +1,60 @@
+target/
+.mvn
+mvnw
+mvnw.cmd
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+### Numerous always-ignore extensions ###
+*.orig
+
+### App ###
+logs/
+.bak
+.gitignore.bak
+.log
+.tmp
+.factorypath
+
+.vscode
+
+*.fpr
+
+*.log
+
+### Node.js / Vue / Vite ###
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env*
+!.env.example
+
+### Testing ###
+coverage/
+*.lcov
+
+### Build ###
+*.tsbuildinfo
+

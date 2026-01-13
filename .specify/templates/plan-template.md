@@ -31,7 +31,10 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **中文优先**: 计划书及后续文档是否使用中文编写？
+- [ ] **Mermaid 图表**: 架构和流程图是否使用 Mermaid 语法？
+- [ ] **术语一致性**: 是否识别并记录了新术语到 `.specify/memory/glossary.md`？
+- [ ] **流程合规**: 是否完整覆盖了从 Spec 到 Tasks 的推导过程？
 
 ## Project Structure
 
