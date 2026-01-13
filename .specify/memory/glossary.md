@@ -13,4 +13,5 @@
 | Tasks | 任务列表。 | |
 | UN/LOCODE | 联合国贸易和运输地点代码 (United Nations Code for Trade and Transport Locations) | |
 | 模糊查询 | 指搜索关键词只需包含在目标文本中即可匹配 | |
+| IANA Timezone | 互联网号码指派局 (Internet Assigned Numbers Authority) 维护的时区数据库格式，如 'Asia/Shanghai' | |
 | 港口代码 | 即 UN/LOCODE | |

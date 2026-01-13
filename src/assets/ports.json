@@ -1,0 +1,72 @@
+[
+  {
+    "code": "CNSHA",
+    "name_cn": "上海",
+    "name_en": "Shanghai",
+    "country": "China",
+    "timezone": "Asia/Shanghai"
+  },
+  {
+    "code": "SGSIN",
+    "name_cn": "新加坡",
+    "name_en": "Singapore",
+    "country": "Singapore",
+    "timezone": "Asia/Singapore"
+  },
+  {
+    "code": "NLRTM",
+    "name_cn": "鹿特丹",
+    "name_en": "Rotterdam",
+    "country": "Netherlands",
+    "timezone": "Europe/Amsterdam"
+  },
+  {
+    "code": "USLAX",
+    "name_cn": "洛杉矶",
+    "name_en": "Los Angeles",
+    "country": "United States",
+    "timezone": "America/Los_Angeles"
+  },
+  {
+    "code": "HKHKG",
+    "name_cn": "香港",
+    "name_en": "Hong Kong",
+    "country": "China",
+    "timezone": "Asia/Hong_Kong"
+  },
+  {
+    "code": "DEHAM",
+    "name_cn": "汉堡",
+    "name_en": "Hamburg",
+    "country": "Germany",
+    "timezone": "Europe/Berlin"
+  },
+  {
+    "code": "AEVJR",
+    "name_cn": "杰贝阿里",
+    "name_en": "Jebel Ali",
+    "country": "United Arab Emirates",
+    "timezone": "Asia/Dubai"
+  },
+  {
+    "code": "KRPUS",
+    "name_cn": "釜山",
+    "name_en": "Busan",
+    "country": "South Korea",
+    "timezone": "Asia/Seoul"
+  },
+  {
+    "code": "MYPKG",
+    "name_cn": "巴生港",
+    "name_en": "Port Kelang",
+    "country": "Malaysia",
+    "timezone": "Asia/Kuala_Lumpur"
+  },
+  {
+    "code": "BEANR",
+    "name_cn": "安特卫普",
+    "name_en": "Antwerp",
+    "country": "Belgium",
+    "timezone": "Europe/Brussels"
+  }
+]
