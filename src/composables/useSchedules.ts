@@ -1,29 +1,52 @@
 import { ref, computed } from 'vue';
 import type { Schedule, ScheduleQuery } from '@/models/schedule';
 import { usePorts } from './usePorts';
+import { StorageService, STORAGE_KEYS } from '@/services/storageService';
+import { OrderService } from '@/services/orderService';
 
 export function useSchedules() {
   const allSchedules = ref<Schedule[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
+  const successMessage = ref<string | null>(null);
   const { ports, loadPorts } = usePorts();
 
   const loadSchedules = async () => {
-    if (allSchedules.value.length > 0) return;
     loading.value = true;
     error.value = null;
     try {
-      // 必须确保港口数据已加载，以便进行一致性校验 (FR-007)
+      // Initialize seeds if first time
+      await StorageService.initializeSeeds();
+      
+      // Ensure ports are loaded for consistency check
       await loadPorts();
       
-      const response = await fetch('/src/assets/schedules.json');
-      if (!response.ok) throw new Error('Load failed');
-      const data = await response.json();
-      allSchedules.value = data;
+      // Get from local storage
+      allSchedules.value = StorageService.getData<Schedule>(STORAGE_KEYS.SCHEDULES);
     } catch (e) {
       error.value = '船期数据加载失败，请稍后重试。';
     } finally {
       loading.value = false;
+    }
+  };
+
+  const refreshSchedules = () => {
+    allSchedules.value = StorageService.getData<Schedule>(STORAGE_KEYS.SCHEDULES);
+  };
+
+  const purchaseSchedule = async (scheduleId: string) => {
+    error.value = null;
+    successMessage.value = null;
+    
+    const result = await OrderService.purchase(scheduleId);
+    
+    if ('error' in result) {
+      error.value = result.error;
+      return false;
+    } else {
+      successMessage.value = `购买成功！订单号: ${result.orderId}`;
+      refreshSchedules(); // Update local inventory state
+      return true;
     }
   };
 
@@ -68,9 +91,12 @@ export function useSchedules() {
   return {
     loading,
     error,
+    successMessage,
     queryParams,
     paginatedSchedules,
     totalSchedules,
-    loadSchedules
+    loadSchedules,
+    purchaseSchedule,
+    refreshSchedules
   };
 }

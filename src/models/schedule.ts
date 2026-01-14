@@ -6,6 +6,7 @@ export interface Schedule {
   duration: number;        // Days
   carrier: string;         // Shipping line
   vesselName: string;
+  inventory: number;
 }
 
 export interface ScheduleQuery {

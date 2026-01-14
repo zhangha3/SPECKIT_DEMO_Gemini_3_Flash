@@ -23,7 +23,24 @@
               >
                 船期查询
               </router-link>
+              <router-link 
+                v-if="isAuthenticated"
+                to="/orders" 
+                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                :class="[route.path === '/orders' ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700']"
+              >
+                我的订单
+              </router-link>
             </div>
+          </div>
+          <div class="flex items-center">
+            <template v-if="isAuthenticated">
+              <span class="text-sm text-gray-700 mr-4">Hi, {{ currentUser?.username }}</span>
+              <button @click="logout" class="text-sm text-gray-500 hover:text-gray-700">退出</button>
+            </template>
+            <template v-else>
+              <router-link to="/login" class="text-sm text-blue-600 hover:text-blue-800">登录</router-link>
+            </template>
           </div>
         </div>
       </div>
@@ -39,11 +56,18 @@
     </div>
   </div>
 </template>
-
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useAuth } from './composables/useAuth';
+import { StorageService } from './services/storageService';
 
 const route = useRoute();
+const { isAuthenticated, currentUser, logout } = useAuth();
+
+onMounted(async () => {
+  await StorageService.initializeSeeds();
+});
 </script>
 
 <style>

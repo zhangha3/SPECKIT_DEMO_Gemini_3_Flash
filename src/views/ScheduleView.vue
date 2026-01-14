@@ -1,13 +1,27 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useSchedules } from '@/composables/useSchedules';
 import { usePorts } from '@/composables/usePorts';
+import { useAuth } from '@/composables/useAuth';
 import PortAutocomplete from '@/components/PortAutocomplete.vue';
 import ScheduleList from '@/components/ScheduleList.vue';
 import Pagination from '@/components/Pagination.vue';
 
-const { loading: schedulesLoading, error: schedulesError, queryParams, paginatedSchedules, totalSchedules, loadSchedules } = useSchedules();
+const router = useRouter();
+const { 
+  loading: schedulesLoading, 
+  error: schedulesError,
+  successMessage,
+  queryParams, 
+  paginatedSchedules, 
+  totalSchedules, 
+  loadSchedules,
+  purchaseSchedule,
+  error: actionError 
+} = useSchedules();
 const { ports, loadPorts } = usePorts();
+const { isAuthenticated } = useAuth();
 
 onMounted(async () => {
   await Promise.all([
@@ -33,6 +47,20 @@ const handleReset = () => {
     page: 1,
     pageSize: 10
   };
+};
+
+const handlePurchase = async (scheduleId: string) => {
+  if (!isAuthenticated.value) {
+    router.push({
+      path: '/login',
+      query: { redirect: '/schedules' }
+    });
+    return;
+  }
+  
+  if (confirm('确认购买此舱位？')) {
+    await purchaseSchedule(scheduleId);
+  }
 };
 </script>
 
@@ -100,6 +128,15 @@ const handleReset = () => {
 
     <!-- Results Section -->
     <div class="mt-8">
+      <!-- Purchase Feedback -->
+      <div v-if="successMessage" class="mb-6 p-4 bg-green-50 text-green-700 rounded-lg border border-green-200 flex justify-between items-center animate-pulse">
+        <span class="font-bold">✅ {{ successMessage }}</span>
+        <router-link to="/orders" class="text-sm font-bold underline hover:text-green-800">查看我的订单 &rarr;</router-link>
+      </div>
+      <div v-if="actionError" class="mb-6 p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
+        {{ actionError }}
+      </div>
+
       <div v-if="schedulesLoading" class="flex justify-center py-12">
         <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
       </div>
@@ -113,7 +150,11 @@ const handleReset = () => {
              <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest bg-slate-50 px-3 py-1 rounded-full border border-slate-100">Sorted by ETD Ascending</span>
            </div>
            
-           <ScheduleList :schedules="paginatedSchedules" :ports="ports" />
+           <ScheduleList 
+             :schedules="paginatedSchedules" 
+             :ports="ports" 
+             @purchase="handlePurchase"
+           />
 
            <Pagination 
              v-model:current-page="queryParams.page"

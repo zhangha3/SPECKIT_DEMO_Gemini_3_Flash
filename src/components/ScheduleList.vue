@@ -5,9 +5,11 @@ import type { Port } from '@/models/port';
 interface Props {
   schedules: Schedule[];
   ports: Port[];
+  loading?: boolean;
 }
 
 const props = defineProps<Props>();
+const emit = defineEmits(['purchase']);
 
 const formatLocalTime = (etd: string, portCode: string) => {
   const port = props.ports.find(p => p.code === portCode);
@@ -89,11 +91,28 @@ const formatLocalTime = (etd: string, portCode: string) => {
             </div>
           </div>
 
-          <!-- ETD Stats -->
-          <div class="md:w-64 w-full pt-6 md:pt-0 md:pl-8 md:border-l border-slate-100 flex flex-col justify-center">
-             <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest text-center md:text-right">Estimated Departure (Local)</div>
-             <div class="bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-[13px] font-mono font-bold whitespace-nowrap text-center shadow-lg shadow-indigo-100">
-               {{ formatLocalTime(s.etd, s.originPort) }}
+          <!-- ETD Stats & Purchase -->
+          <div class="md:w-64 w-full pt-6 md:pt-0 md:pl-8 md:border-l border-slate-100 flex flex-col justify-center space-y-4">
+             <div>
+               <div class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest text-center md:text-right">Departure</div>
+               <div class="text-xs text-slate-600 font-mono text-center md:text-right mb-1">
+                 {{ formatLocalTime(s.etd, s.originPort) }}
+               </div>
+             </div>
+             
+             <div class="flex flex-col items-end">
+               <div class="text-2xl font-black text-orange-600">¥{{ s.price?.toLocaleString() || 'N/A' }}</div>
+               <div class="text-xs text-slate-500 mb-2">
+                 库存: <span :class="s.inventory > 0 ? 'text-green-600 font-bold' : 'text-red-500 font-bold'">{{ s.inventory }}</span>
+               </div>
+               
+               <button 
+                 @click="emit('purchase', s.id)"
+                 :disabled="s.inventory <= 0"
+                 class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white px-4 py-2 rounded-lg text-sm font-bold transition shadow-md shadow-indigo-100 disabled:shadow-none"
+               >
+                 {{ s.inventory > 0 ? '预订舱位' : '已售罄' }}
+               </button>
              </div>
           </div>
         </div>

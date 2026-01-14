@@ -1,0 +1,7 @@
+[
+  { "username": "admin", "password": "password123", "email": "admin@example.com", "country": "China" },
+  { "username": "User1", "password": "pass1", "email": "user1@example.com", "country": "USA" },
+  { "username": "User2", "password": "pass2", "email": "user2@example.com", "country": "Germany" },
+  { "username": "User3", "password": "pass3", "email": "user3@example.com", "country": "Singapore" },
+  { "username": "User4", "password": "pass4", "email": "user4@example.com", "country": "Japan" }
+]
