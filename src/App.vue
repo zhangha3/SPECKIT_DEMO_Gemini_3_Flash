@@ -31,6 +31,22 @@
               >
                 我的订单
               </router-link>
+              <router-link 
+                v-if="isAuthenticated"
+                to="/funds" 
+                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                :class="[route.path === '/funds' ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700']"
+              >
+                资金账户
+              </router-link>
+              <router-link 
+                v-if="isAuthenticated"
+                to="/stats" 
+                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                :class="[route.path === '/stats' ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700']"
+              >
+                数据统计
+              </router-link>
             </div>
           </div>
           <div class="flex items-center">

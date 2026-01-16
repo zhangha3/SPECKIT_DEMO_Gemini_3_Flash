@@ -74,9 +74,15 @@ onMounted(() => {
             <span class="text-sm text-gray-500 block">订单号</span>
             <span class="font-mono font-bold text-lg">{{ order.orderId }}</span>
           </div>
-          <div class="text-right">
-            <span class="text-sm text-gray-500 block">下单时间</span>
-            <span class="text-gray-900">{{ new Date(order.orderTime).toLocaleString() }}</span>
+          <div class="flex gap-8">
+            <div class="text-right">
+              <span class="text-sm text-gray-500 block">订单金额</span>
+              <span class="font-black text-lg text-indigo-600">¥{{ (order.scheduleSnapshot as any).price?.toLocaleString() || '---' }}</span>
+            </div>
+            <div class="text-right">
+              <span class="text-sm text-gray-500 block">下单时间</span>
+              <span class="text-gray-900">{{ new Date(order.orderTime).toLocaleString() }}</span>
+            </div>
           </div>
         </div>
         

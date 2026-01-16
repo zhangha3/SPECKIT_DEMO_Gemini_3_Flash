@@ -16,9 +16,9 @@ export class StorageService {
   }
 
   static async initializeSeeds(): Promise<void> {
-    // For Demo: Force reload users to ensure User1/pass1 works
+    // For Demo: Force reload users if fund/logs field missing to ensure new functionality works
     const existingUsers = localStorage.getItem(STORAGE_KEYS.USERS);
-    if (!existingUsers || !existingUsers.includes('User1')) {
+    if (!existingUsers || !existingUsers.includes('funds')) {
       const usersResp = await fetch('/src/assets/users.json');
       const users = await usersResp.json();
       this.saveData(STORAGE_KEYS.USERS, users);

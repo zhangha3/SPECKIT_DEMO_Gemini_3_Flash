@@ -101,17 +101,20 @@ const formatLocalTime = (etd: string, portCode: string) => {
              </div>
              
              <div class="flex flex-col items-end">
-               <div class="text-2xl font-black text-orange-600">¥{{ s.price?.toLocaleString() || 'N/A' }}</div>
+               <div class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-widest">Price</div>
+               <div class="text-2xl font-black text-indigo-600 mb-1">¥{{ s.price?.toLocaleString() || '---' }}</div>
+               <div class="text-[10px] text-slate-400 mb-2 bg-slate-100 px-2 py-0.5 rounded">All-in Rate</div>
+               
                <div class="text-xs text-slate-500 mb-2">
-                 库存: <span :class="s.inventory > 0 ? 'text-green-600 font-bold' : 'text-red-500 font-bold'">{{ s.inventory }}</span>
+                 库存: <span :class="s.inventory > 0 ? 'text-green-600 font-bold' : 'text-rose-500 font-bold'">{{ s.inventory }}</span>
                </div>
                
                <button 
                  @click="emit('purchase', s.id)"
                  :disabled="s.inventory <= 0"
-                 class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white px-4 py-2 rounded-lg text-sm font-bold transition shadow-md shadow-indigo-100 disabled:shadow-none"
+                 class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white px-4 py-2 rounded-lg text-sm font-bold transition shadow-md shadow-indigo-100 disabled:shadow-none active:scale-95"
                >
-                 {{ s.inventory > 0 ? '预订舱位' : '已售罄' }}
+                 {{ s.inventory > 0 ? '立即预订' : '已售罄' }}
                </button>
              </div>
           </div>

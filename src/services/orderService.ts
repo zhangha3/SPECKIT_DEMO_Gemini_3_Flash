@@ -1,5 +1,6 @@
 import { StorageService, STORAGE_KEYS } from './storageService';
 import { AuthService } from './authService';
+import { FundService } from './fundService';
 import type { Order } from '@/models/order';
 import type { Schedule } from '@/models/schedule';
 
@@ -29,14 +30,32 @@ export class OrderService {
     const schedule = schedules[scheduleIndex];
     if (schedule.inventory <= 0) return { error: 'Inventory is sold out.' };
 
+    // 0. Fund Check and Deduction
+    const price = (schedule as any).price || 0;
+    if (user.funds < price) {
+      return { error: `余额不足。当前余额: ¥${user.funds}, 所需金额: ¥${price}` };
+    }
+
     // 1. Reduce inventory
     schedule.inventory -= 1;
     schedules[scheduleIndex] = schedule;
     StorageService.saveData(STORAGE_KEYS.SCHEDULES, schedules);
 
+    const orderId = this.generateOrderId();
+
+    // 1.5 Deduct funds and record log
+    const fundResult = await FundService.updateBalance('PAYMENT', -price, orderId);
+    if (!fundResult.success) {
+      // Rollback inventory if fund deduction fails
+      schedule.inventory += 1;
+      schedules[scheduleIndex] = schedule;
+      StorageService.saveData(STORAGE_KEYS.SCHEDULES, schedules);
+      return { error: fundResult.error || '支付失败' };
+    }
+
     // 2. Create order with snapshot
     const newOrder: Order = {
-      orderId: this.generateOrderId(),
+      orderId: orderId,
       userName: user.username,
       orderTime: new Date().toISOString(),
       scheduleSnapshot: { ...schedule }

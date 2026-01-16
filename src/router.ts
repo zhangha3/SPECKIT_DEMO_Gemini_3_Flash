@@ -3,6 +3,8 @@ import HomeView from './views/HomeView.vue';
 import ScheduleView from './views/ScheduleView.vue';
 import LoginView from './views/LoginView.vue';
 import OrderListView from './views/OrderListView.vue';
+import FundManagementView from './views/FundManagementView.vue';
+import StatsView from './views/StatsView.vue';
 import { AuthService } from './services/authService';
 
 const routes = [
@@ -28,6 +30,18 @@ const routes = [
     path: '/orders',
     name: 'Orders',
     component: OrderListView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/funds',
+    name: 'Funds',
+    component: FundManagementView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/stats',
+    name: 'Stats',
+    component: StatsView,
     meta: { requiresAuth: true }
   }
 ];
